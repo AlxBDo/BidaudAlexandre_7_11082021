@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Les petits plats</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <img src="les_petits_lats.svg" alt="Les petits plats" title="Logo Les petits plats">
+            <h1>Les petits plats</h1>
+        </header>
+        <main>
+            <form id="recipes-search-form">
+                <fieldset id="recipes-search-container">
+                    <input 
+                        type="search" 
+                        id="recipes-search" 
+                        placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" 
+                    >
+                </fieldset>
+                <fieldset id="tag-search-container">
+                    <p id="tags-selected"></p>
+                    <div class="tags-search">
+                        <label for="ingredient-search">Ingrédient</label>
+                        <input type="search" id="ingredient-search">
+                        <ul id="ingredients-list"></ul>
+                    </div>
+                    <div class="tags-search">
+                        <label for="device-search">Ingrédient</label>
+                        <input type="search" id="device-search">
+                        <ul id="device-list"></ul>
+                    </div>
+                    <div class="tags-search">
+                        <label for="utensils-search">Ingrédient</label>
+                        <input type="search" id="utensils-search">
+                        <ul id="utensils-list"></ul>
+                    </div>
+                </fieldset>
+            </form>
+            <section id=recipes-found></section>
+        </main>
+    </body>
+</html>
