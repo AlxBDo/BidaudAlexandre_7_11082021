@@ -1,0 +1,64 @@
+:root{
+    --title-color : #D04F4F;
+    --bg-color-light : #E7E7E7;
+    --bg-color-dark: #C7BEBE ;
+    --bg-color-ingredient: #3282F7 ;
+    --bg-color-appareil: #68D9A4 ;
+    --bg-color-ustenciles: #ED6454 ;
+}
+header {
+    color: var(--title-color);
+}
+fieldset {
+    width: 90%;
+    text-align: left;
+    margin: auto;
+    border: none;
+}
+body {
+    text-align: center;
+}
+fieldset input {
+    border: none;
+    background-color: transparent;
+    width: 90%;
+}
+#recipes-search {
+    padding: 1%;
+}
+#recipes-search-container {
+    background-color: var(--bg-color-light);
+}
+.tags-search {
+    display: flex;
+    max-width: 50%;
+    overflow: hidden;
+    border-radius: 5px;
+    color: white;
+    flex-direction: column;
+}
+.tags-search.closed {
+    max-width: 170px;
+    max-height: 50px;
+}
+.tags-search:first-of-type {
+    background-color: var(--bg-color-ingredient);
+}
+#tag-search-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+#tag-search-container p {
+    width: 100%;
+}
+.tags-search:last-of-type {
+    background-color: var(--bg-color-ustenciles);
+}
+.tags-search:nth-of-type(2) {
+    background-color: var(--bg-color-appareil);
+    margin-left: 2%;
+    margin-right: 2%;
+}
+.tags-search label, .tags-search input, .tags-search li {
+    padding: 10%;
+}
