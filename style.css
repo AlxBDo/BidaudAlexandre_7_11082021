@@ -6,36 +6,116 @@
     --bg-color-appareil: #68D9A4 ;
     --bg-color-ustenciles: #ED6454 ;
 }
-header {
-    color: var(--title-color);
+
+body {
+    text-align: center; 
 }
+
 fieldset {
     width: 90%;
     text-align: left;
     margin: auto;
     border: none;
-}
-body {
-    text-align: center;
+    padding: 0;
 }
 fieldset input {
     border: none;
     background-color: transparent;
     width: 90%;
 }
+fieldset input:focus-visible {
+	outline: none;
+}
+
+header {
+    color: var(--title-color);
+}
+
+#recipes-found {
+	display: flex;
+	flex-wrap: wrap;
+    justify-content: space-between;
+}
+#recipes-found a {
+	margin: 1%;
+	width: 30%;
+	text-decoration: none;
+	color: inherit;
+	overflow: hidden;
+	padding-top: 200px;
+	background-color: var(--bg-color-dark);
+}
+#recipes-found a h1 {
+	width: 65%;
+    order: 1;
+}
+#recipes-found article {
+	display: flex;
+	flex-wrap: wrap;
+	height: 200px;
+	overflow: hidden;
+	padding: 25px;
+	background-color: var(--bg-color-light);
+	justify-content: space-between;
+}
+#recipes-found a h1, #recipes-found a p {
+	margin: 1%;
+	text-align: left;
+}
+#recipes-found article ul {
+	order: 3;
+	text-align: left;
+	list-style: none;
+}
+.desc-recip {
+	order: 4;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	max-height: 74%;
+	word-wrap: break-word;
+}
+.desc-recip, #recipes-found a ul {
+	width: 46%;
+    padding: 0
+}
+.time-recip {
+	order: 2;
+}
+
 #recipes-search {
-    padding: 1%;
+    padding: 2%;
 }
 #recipes-search-container {
     background-color: var(--bg-color-light);
+    position: relative;
 }
+#recipes-search-container::after {
+	content: url("img/search.png");
+	position: absolute;
+	right: 1%;
+	top: 17px;
+}
+
 .tags-search {
     display: flex;
     max-width: 50%;
     overflow: hidden;
     border-radius: 5px;
-    color: white;
     flex-direction: column;
+    position: relative;
+}
+.tags-search.closed::after {
+	content: url("img/dropdown-close.png");
+}
+.tags-search.closed::after, .tags-search.opened::after {
+	width: 16px;
+	height: 11px;
+	position: absolute;
+	right: 7%;
+	top: 16px;
+}
+.tags-search.opened::after {
+	content: url("img/dropdown-open.png");
 }
 .tags-search.closed {
     max-width: 170px;
@@ -58,6 +138,10 @@ fieldset input {
     background-color: var(--bg-color-appareil);
     margin-left: 2%;
     margin-right: 2%;
+}
+.tags-search, .tags-search label, .tags-search input, .tags-search li {
+    cursor: pointer;
+    color: white;
 }
 .tags-search label, .tags-search input, .tags-search li {
     padding: 10%;

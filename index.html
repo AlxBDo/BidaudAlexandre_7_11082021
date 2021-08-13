@@ -24,22 +24,42 @@
                     <p id="tags-selected"></p>
                     <div class="tags-search closed">
                         <label for="ingredient-search">Ingrédient</label>
-                        <input type="search" id="ingredient-search">
+                        <input 
+                            type="search" 
+                            id="ingredient-search" 
+                            placeholder="Rechercher un ingrédient"
+                        >
                         <ul id="ingredients-list"></ul>
                     </div>
                     <div class="tags-search closed">
-                        <label for="device-search">Appareil</label>
-                        <input type="search" id="device-search">
-                        <ul id="device-list"></ul>
+                        <label for="appliance-search">Appareil</label>
+                        <input 
+                            type="search" 
+                            id="appliance-search" 
+                            placeholder="Rechercher un appareil"
+                        >
+                        <ul id="appliance-list"></ul>
                     </div>
                     <div class="tags-search closed">
-                        <label for="utensils-search">Ustenciles</label>
-                        <input type="search" id="utensils-search">
-                        <ul id="utensils-list"></ul>
+                        <label for="ustencils-search">Ustenciles</label>
+                        <input 
+                            type="search" 
+                            id="ustencils-search" 
+                            placeholder="Rechercher un ustenciles"
+                        >
+                        <ul id="ustencils-list"></ul>
                     </div>
                 </fieldset>
             </form>
             <section id=recipes-found></section>
         </main>
+        <script src="js/obj/issue.js"></script>
+        <script src="js/obj/listenner.js"></script>
+        <script src="js/recipes.js"></script>
+        <script src="js/obj/JsonDataCollector.js"></script>
+        <script src="js/obj/display/display.js"></script>
+        <script src="js/obj/display/recipeDisplay.js"></script>
+        <script src="js/obj/display/searchDisplay.js"></script>
+        <script src="js/index.js"></script>
     </body>
 </html>
