@@ -8,6 +8,8 @@ class search extends issue {
 
     tag_search_historical = [];
 
+    value_search_historical = 0;
+
     constructor(jsonDataCollector_obj){
         super();
         if(this.test(jsonDataCollector_obj, jsonDataCollector, {"pos" : "jsonDataCollector_obj"})){
@@ -45,6 +47,24 @@ class search extends issue {
     }
 
     getDifference(arr1, arr2){ return arr1.filter(x => !arr2.includes(x)); }
+
+    getWhatByLi(dom_li){
+        let id = dom_li.getAttribute("id").split("-")[1];
+        id += id === "i" ? "ng" : id === "a" ? "pp" : "st";
+        return id;
+    };
+
+    getSearchedMapKey(text){ return this.jdc.armonizeWords(text.split(" ").join("")) ; };
+
+    globalSearch = function(dom_input){
+        if(this.test(dom_input, "object", {"pos" : "first"})){
+            let vs = dom_input.value;
+            let vsl = vs.length ;
+            if(vsl < this.value_search_historical){ this.clear(); }
+            this.value_search_historical = vsl;
+            this.searchRecipes(vs, "all");
+        }
+    }
 
     /**
      * 
@@ -86,13 +106,6 @@ class search extends issue {
         } else { this.clear(true) ;  }
     };
 
-    getWhatByLi(dom_li){
-        let id = dom_li.getAttribute("id").split("-")[1];
-        id += id === "i" ? "ng" : id === "a" ? "pp" : "st";
-        return id;
-    };
-
-    getSearchedMapKey(text){ return this.jdc.armonizeWords(text.split(" ").join("")) ; };
 
     initResult(recipes_waiting_display = []){
         this.result.set("a", this.jdc.list_of_recipe_id);
@@ -113,7 +126,10 @@ class search extends issue {
         if(txt.toLowerCase().indexOf(searched_value.toLowerCase()) >= 0){
             this.found = true;
             return true;
-        } else { return false ; }
+        } else { 
+            this.found = false; 
+            return false ; 
+        }
     };
 
     searchIngredient(searched_value, id_recipe){
@@ -206,6 +222,14 @@ class search extends issue {
         this.result.set("h", rjct_r.concat(this.result.get("h")).sort());
         // if display -> delete recipes waiting display
         if(display){ this.result.set("wait_display", []) ; }
+        // if the result of the global search is empty, I try a new search word by word
+        if(slct_r.length === 0 && searched_value.includes(" ") && what === "all"){
+            let svs = searched_value.split(" ");
+            this.clear();
+            for(let i = 0; i < svs.length ; i++){
+                if(!this.result.get("h"+what+this.getSearchedMapKey(svs[i]))){ this.searchRecipes(svs[i], what); }
+            }
+        }
     };
 
     selectTag = function(dom_li){ 

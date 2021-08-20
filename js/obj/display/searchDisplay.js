@@ -127,6 +127,6 @@ class searchDisplay extends display {
             dom_li.parentNode.getAttribute("id").split("-")[0]
         );
         dom_li.classList.add(this.html_hide_class);
-    };
+    }; 
 
 }

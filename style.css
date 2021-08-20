@@ -110,13 +110,14 @@ header {
 
 .search-mode .close-search-mode::after {
 	content: "x";
-	padding: 1px 7px 4px;
+	padding: 0px 6px 2px;
 	position: absolute;
 	right: 25%;
 	border: 2px solid;
 	border-radius: 17px;
-	top: 13px;
+	top: 16px;
 	font-size: small;
+	opacity: 0.5;
 }
 .search-mode ul li { display: none; }
 .search-mode ul li.found { display: block; }
