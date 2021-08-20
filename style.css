@@ -27,23 +27,51 @@ fieldset input:focus-visible {
 	outline: none;
 }
 
+.desc-recip {
+	order: 4;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	max-height: 74%;
+	word-wrap: break-word;
+}
+.desc-recip, #recipes-found a ul {
+	width: 46%;
+    padding: 0
+}
+
 header {
     color: var(--title-color);
+}
+
+.hide { display: none; }
+
+.opened label {
+	transform: translateY(-50px);
+	height: 0;
+    opacity: 0;
+	margin-bottom: -40px;
+	transition: all 250ms;
 }
 
 #recipes-found {
 	display: flex;
 	flex-wrap: wrap;
     justify-content: space-between;
+    width: 90%;
+    margin: auto;
 }
 #recipes-found a {
-	margin: 1%;
+	margin: 1% 0;
 	width: 30%;
 	text-decoration: none;
 	color: inherit;
 	overflow: hidden;
 	padding-top: 200px;
 	background-color: var(--bg-color-dark);
+	display: none;
+}
+#recipes-found a.active {
+	display: block;
 }
 #recipes-found a h1 {
 	width: 65%;
@@ -64,22 +92,6 @@ header {
 }
 #recipes-found article ul {
 	order: 3;
-	text-align: left;
-	list-style: none;
-}
-.desc-recip {
-	order: 4;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	max-height: 74%;
-	word-wrap: break-word;
-}
-.desc-recip, #recipes-found a ul {
-	width: 46%;
-    padding: 0
-}
-.time-recip {
-	order: 2;
 }
 
 #recipes-search {
@@ -96,13 +108,27 @@ header {
 	top: 17px;
 }
 
+.search-mode .close-search-mode::after {
+	content: "x";
+	padding: 1px 7px 4px;
+	position: absolute;
+	right: 25%;
+	border: 2px solid;
+	border-radius: 17px;
+	top: 13px;
+	font-size: small;
+}
+.search-mode ul li { display: none; }
+.search-mode ul li.found { display: block; }
+
 .tags-search {
     display: flex;
-    max-width: 50%;
+    width: 50%;
     overflow: hidden;
     border-radius: 5px;
     flex-direction: column;
     position: relative;
+	transition: all 250ms ease-in-out;
 }
 .tags-search.closed::after {
 	content: url("img/dropdown-close.png");
@@ -143,6 +169,62 @@ header {
     cursor: pointer;
     color: white;
 }
-.tags-search label, .tags-search input, .tags-search li {
-    padding: 10%;
+.tags-search label, .tags-search input {
+    padding: 20px;
+}
+.tags-search ul {
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 0 20px;
+}
+.tags-search ul li {
+	width: 30%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin: 0% 0 3%;
+}
+
+#tags-selected {
+	width: 100%;
+	padding: 5px 0;
+}
+#tags-selected .appliance {
+	background-color: var(--bg-color-appareil);
+}
+#tags-selected .ingredients {
+	background-color: var(--bg-color-ingredient);
+}
+#tags-selected .ustencils {
+	background-color: var(--bg-color-ustenciles);
+}
+#tags-selected li {
+	display: inline-block;
+	padding: 10px;
+	border-radius: 5px;
+	color: white;
+	font-size: small;
+	line-height: 20px;
+	margin-right: 10px;
+	cursor: pointer;
+}
+#tags-selected li::after {
+	content: "x";
+	float: right;
+	border-radius: 100%;
+	margin-left: 10px;
+	padding: 0px 8px 2px;
+	border: 2px solid;
+	margin-top: -2px;
+}
+
+.time-recip {
+	order: 2;
+}
+
+ul {
+	text-align: left;
+	list-style: none;
 }

@@ -75,48 +75,49 @@ class issue {
      * @returns {boolean}
      */
     test(item_test, typ_expect, error_infos, condition_typ = false, condition_value = false){
-        if(
-            (typ_expect === "string") || (typ_expect === "object") || (typ_expect === "number") 
-            && (typeof item_test === typ_expect)
-        ){ this.process_state = true ;
-        } else if(typ_expect === "array" && Array.isArray(item_test)){ this.process_state = true; 
-        } else if(item_test instanceof typ_expect){ this.process_state = true; }
-        if(condition_typ){ 
-            if(condition_typ === "!empty"){
-                condition_typ = ">";
-                condition_value = 0 ;
+        this.process_state = false ;
+        if(item_test && item_test !== "false"){
+            if(typ_expect === "string" || typ_expect === "object" || typ_expect === "number"){ 
+                if(typeof item_test === typ_expect){ this.process_state = true ; }
+            } else if(typ_expect === "array" && Array.isArray(item_test)){ this.process_state = true; 
+            } else if(item_test instanceof typ_expect){ this.process_state = true; }
+            if(condition_typ){ 
+                if(condition_typ === "!empty"){
+                    condition_typ = ">";
+                    condition_value = 0 ;
+                }
+                let vt = typ_expect === "number" ? item_test : item_test.lenght ;
+                switch(condition_typ){
+                    case ">" : 
+                        if(vt > condition_value){ this.process_state = true ; }; 
+                        break;
+                    case ">=" : 
+                        if(vt >= condition_value){ this.process_state = true ; }; 
+                        break;
+                    case "<" : 
+                        if(vt <= condition_value){ this.process_state = true ; }; 
+                        break;
+                    case "<=" : 
+                        if(vt <= condition_value){ this.process_state = true ; }; 
+                        break;
+                    case "=" : 
+                        if(vt === condition_value){ this.process_state = true ; }; 
+                        break; 
+                    case "!=" : 
+                        if(vt !== condition_value){ this.process_state = true ; }; 
+                        break; 
+                    default : break; 
+                } 
             }
-            let vt = typ_expect === "number" ? item_test : item_test.lenght ;
-            switch(condition_typ){
-                case ">" : 
-                    if(vt > condition_value){ this.process_state = true ; }; 
-                    break;
-                case ">=" : 
-                    if(vt >= condition_value){ this.process_state = true ; }; 
-                    break;
-                case "<" : 
-                    if(vt <= condition_value){ this.process_state = true ; }; 
-                    break;
-                case "<=" : 
-                    if(vt <= condition_value){ this.process_state = true ; }; 
-                    break;
-                case "=" : 
-                    if(vt === condition_value){ this.process_state = true ; }; 
-                    break; 
-                case "!=" : 
-                    if(vt !== condition_value){ this.process_state = true ; }; 
-                    break; 
-                default : break; 
-            } 
-        }
-        if(!this.process_state && error_infos){
-            this.setErrorMsg(
-                error_infos["msg"] ? error_infos["msg"] : error_infos["pos"],
-                typ_expect,
-                error_infos["mu"] ? error_infos["mu"] : false,
-                error_infos["el"] ? error_infos["el"] : 0
+            if(!this.process_state && error_infos){
+                this.setErrorMsg(
+                    error_infos["msg"] ? error_infos["msg"] : error_infos["pos"],
+                    typ_expect,
+                    error_infos["mu"] ? error_infos["mu"] : false,
+                    error_infos["el"] ? error_infos["el"] : 0
 
-            );
+                );
+            }
         }
         return this.issue();
     }

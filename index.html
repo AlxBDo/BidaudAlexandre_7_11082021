@@ -21,33 +21,54 @@
                     >
                 </fieldset>
                 <fieldset id="tag-search-container">
-                    <p id="tags-selected"></p>
-                    <div class="tags-search closed">
-                        <label for="ingredient-search">Ingrédient</label>
+                    <ul id="tags-selected"></ul>
+                    <div class="l-met-openDomList l-obj-se l-evt-c prm l-pre-def tags-search closed">
+                        <label for="ingredients-search">Ingrédient</label>
                         <input 
                             type="search" 
-                            id="ingredient-search" 
+                            id="ingredients-search" 
+                            class="l-met-searchTag l-obj-se l-evt-ku prm" 
                             placeholder="Rechercher un ingrédient"
                         >
-                        <ul id="ingredients-list"></ul>
+                        <span 
+                            id="ingredients-search-close" 
+                            class="l-met-stopSearchTag l-obj-se l-evt-c prm close-search-mode" 
+                        ></span>
+                        <ul id="ingredients-list">
+                            <li id="isl-empty" class="hide">Aucun ingredient trouvé</li>
+                        </ul>
                     </div>
-                    <div class="tags-search closed">
+                    <div class="l-met-openDomList l-obj-se l-evt-c prm tags-search closed">
                         <label for="appliance-search">Appareil</label>
                         <input 
                             type="search" 
                             id="appliance-search" 
+                            class="l-met-searchTag l-obj-se l-evt-ku prm" 
                             placeholder="Rechercher un appareil"
                         >
-                        <ul id="appliance-list"></ul>
+                        <span 
+                            id="appliance-search-close" 
+                            class="l-met-stopSearchTag l-obj-se l-evt-c prm close-search-mode" 
+                        ></span>
+                        <ul id="appliance-list">
+                            <li id="asl-empty" class="hide">Aucun ingredient trouvé</li>
+                        </ul>
                     </div>
-                    <div class="tags-search closed">
+                    <div class="l-met-openDomList l-obj-se l-evt-c prm tags-search closed">
                         <label for="ustencils-search">Ustenciles</label>
                         <input 
                             type="search" 
                             id="ustencils-search" 
+                            class="l-met-searchTag l-obj-se l-evt-ku prm" 
                             placeholder="Rechercher un ustenciles"
                         >
-                        <ul id="ustencils-list"></ul>
+                        <span 
+                            id="ustencils-search-close" 
+                            class="l-met-stopSearchTag l-obj-se l-evt-c prm close-search-mode" 
+                        ></span>
+                        <ul id="ustencils-list">
+                            <li id="usl-empty" class="hide">Aucun ingredient trouvé</li>
+                        </ul>
                     </div>
                 </fieldset>
             </form>
@@ -60,6 +81,7 @@
         <script src="js/obj/display/display.js"></script>
         <script src="js/obj/display/recipeDisplay.js"></script>
         <script src="js/obj/display/searchDisplay.js"></script>
+        <script src="js/obj/search.js"></script>
         <script src="js/index.js"></script>
     </body>
 </html>

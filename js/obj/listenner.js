@@ -5,27 +5,32 @@
 
     call_objects = new Map();
     dom_elements_to_listen = new Map();
-    events_to_listen = new Map();
+    events_to_listen = new Map(); 
 
     /**
      * 
      * @param {object} dom_element_to_listen 
      * @param {string} event_to_listen 
      * @param {string} event_identification_class 
-     * @param {object} objet_to_call 
+     * @param {object} object_to_call 
      * @param {string} object_id_class 
      */
     constructor(
         dom_element_to_listen, 
         event_to_listen, 
         event_identification_class, 
-        objet_to_call  = false, 
+        object_to_call  = false, 
         object_id_class = false
     ){
         super();
         this.addDomElementListen(dom_element_to_listen, event_to_listen);
         this.addEventToListen(event_to_listen, event_identification_class);
-        if(objet_to_call && object_id_class){ this.addCallObject(objet_to_call, object_id_class); }
+        if(object_to_call && object_id_class){ 
+            this.addCallObject(object_to_call, object_id_class); 
+            if(object_to_call.hasOwnProperty("addListenner")){
+                object_to_call.addListenner(this);
+            }
+        }
     }
 
     /**

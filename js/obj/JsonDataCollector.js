@@ -20,6 +20,8 @@ class jsonDataCollector extends issue {
         }
     };
 
+    list_of_recipe_id = [];
+
     list_of_search_item = new Map();
     
     rpl_map = { 
@@ -34,6 +36,8 @@ class jsonDataCollector extends issue {
         "o" : "ö",
         "u" : "û"
     };
+
+    searchDisplay_obj = new searchDisplay();
 
     constructor(){
         super();
@@ -56,8 +60,12 @@ class jsonDataCollector extends issue {
      */
     addItemToSearchList(item, list_type, searchDisplay_obj, num_id, recipeDisplay_obj = false){
         this.current_method = "addItemToSearchList";
+        this.process_state = false;
         if(
-            this.test(item, "string", {"pos" : "item"}, "!empty") 
+            (
+                (list_type === "i" && this.test(item, "object", {"pos" : "item"}))
+                || ((list_type !== "i" && this.test(item, "string", {"pos" : "item"}, "!empty")))
+            ) 
             && this.test(searchDisplay_obj, searchDisplay, {"pos" : "searchDisplay_obj"}) 
         ){
             if(recipeDisplay_obj){
@@ -67,22 +75,16 @@ class jsonDataCollector extends issue {
             }
             if(this.list_of_search_item.has(list_type)){
                 let item_array = this.list_of_search_item.get(list_type);
+                if(list_type === "i"){ item = item.ingredient ; }
                 if(!this.compareToList.isIdentical(this.armonizeWords(item), list_type)){
                     item_array.push(item.toLowerCase());
                     this.list_of_search_item.set(list_type, item_array);
                     return searchDisplay_obj.addItemList(item, list_type, num_id);
-                }
+                } else { return false ;}
             } else { this.setErrorMsg("list_type paramater isn't in list_of_search_item attribute") ; }
         }
         return this.issue();
     };
-
-    /**
-     * 
-     * @param {string} list_type 
-     * @returns {array}
-     */
-    getItemList(list_type){ return this.list_of_search_item.get(list_type) ; };
 
     /**
      * 
@@ -94,23 +96,35 @@ class jsonDataCollector extends issue {
         return str.toLowerCase().replace(/[^a-z]/g, function(x) { return rm[x] || x; });
     };
 
+    /**
+     * collects data and instantiates objects to display them
+     */
     collect(){
-        let sd = new searchDisplay();
         let rd = new recipeDisplay();
         let num_id = [0, 0, 0] ;
         for(let recipe of recipes){
             if(typeof recipe === "object"){
+                this.list_of_recipe_id.push("recipe-"+recipe.id);
                 rd.createRecipePtrn(recipe);
                 for(let ing of recipe.ingredients){
-                    num_id[0] += this.addItemToSearchList(ing.ingredient, "i", sd, num_id[0], rd); 
+                    if(this.addItemToSearchList(ing, "i", this.searchDisplay_obj, num_id[0], rd)){ num_id[0]++ ; } 
                 }
-                num_id[1] += this.addItemToSearchList(recipe.appliance, "a", sd, num_id[1]);
+                num_id[1] += this.addItemToSearchList(recipe.appliance, "a", this.searchDisplay_obj, num_id[1]);
                 for(let ust of recipe.ustensils){ 
-                    num_id[2] += this.addItemToSearchList(ust, "u", sd, num_id[2]); 
+                    num_id[2] += this.addItemToSearchList(ust, "u", this.searchDisplay_obj, num_id[2]); 
                 }
                 rd.display();
             }
         }
-        
-    }
+    };
+
+    /**
+     * 
+     * @param {string} list_type 
+     * @returns {array}
+     */
+    getItemList(list_type){ return this.list_of_search_item.get(list_type) ; };
+
+    getSearchDisplObj(){ return this.searchDisplay_obj; }
+
 }
