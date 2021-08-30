@@ -71,6 +71,8 @@ class search extends issue {
      * @param {object} dom_li 
      */
     goBack(dom_li){
+        // display all items of search lists
+        this.jdc.getSearchDisplObj().clearSearchList();
         // transform nodelist to array
         let st_array = Array.from(document.getElementById("tags-selected").childNodes) ;
         if(st_array.length > 1){
@@ -123,7 +125,7 @@ class search extends issue {
     };
 
     search(txt, searched_value){
-        if(txt.toLowerCase().indexOf(searched_value.toLowerCase()) >= 0){
+        if(txt.toLowerCase().indexOf(searched_value) >= 0){
             this.found = true;
             return true;
         } else { 
@@ -187,8 +189,12 @@ class search extends issue {
      * @param {string} what 
      */
     searchRecipes(searched_value, what, display = true){
-        let rjct_r = []; // rejected
-        let slct_r = []; // selected
+        let availabl_app = []; // available appliances of selected recipes
+        let availabl_ing = []; // available ingredients of selected recipes
+        let availabl_ust = []; // available ustencils of selected recipes
+        let rjct_r = []; // rejected recipes
+        let slct_r = []; // selected recipes
+        searched_value = searched_value.toLowerCase();
         this.result.get("a").forEach(id => {
             let id_recipe = id.split("-")[1] ;
             if(what === "ing" || what === "all"){ this.searchIngredient(searched_value, id_recipe); }
@@ -203,6 +209,14 @@ class search extends issue {
             if(this.found){ 
                 this.found = false ; 
                 slct_r.push(id);
+                let app = this.jdc.list_of_recipe_appliances.get(parseInt(id_recipe));
+                if(!availabl_app.includes(app)){ availabl_app.push(app); }
+                if(availabl_ing.length > 0){ 
+                    availabl_ing = availabl_ing.concat(this.jdc.list_of_recipe_ingredients.get(parseInt(id_recipe))); 
+                } else { availabl_ing = this.jdc.list_of_recipe_ingredients.get(parseInt(id_recipe)) ; }
+                if(availabl_ust.length > 0){ 
+                    availabl_ust = availabl_ust.concat(this.jdc.list_of_recipe_ustencils.get(parseInt(id_recipe))); 
+                } else { availabl_ust = this.jdc.list_of_recipe_ustencils.get(parseInt(id_recipe)) ; }
                 if(display && this.result.get("wait_display").includes(id)){ 
                     this.jdc.getSearchDisplObj().annimRecipe(id); }
             } else { 
@@ -220,9 +234,11 @@ class search extends issue {
         this.result.set("h"+what+this.getSearchedMapKey(searched_value), rjct_r);
         this.result.set("a", slct_r.sort());
         this.result.set("h", rjct_r.concat(this.result.get("h")).sort());
+        // hide search list items not available
+        this.jdc.getSearchDisplObj().updateSearchList(availabl_app, availabl_ing, availabl_ust);
         // if display -> delete recipes waiting display
         if(display){ this.result.set("wait_display", []) ; }
-        // if the result of the global search is empty, I try a new search word by word
+        // if the result of the global search is empty, try a new search word by word
         if(slct_r.length === 0 && searched_value.includes(" ") && what === "all"){
             let svs = searched_value.split(" ");
             this.clear();

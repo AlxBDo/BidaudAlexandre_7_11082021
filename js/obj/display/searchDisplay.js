@@ -77,6 +77,12 @@ class searchDisplay extends display {
         }
     };
 
+    clearSearchList(){
+        document.querySelectorAll(".not-available").forEach(e => {
+            e.classList.replace("not-available", "available");
+        });
+    }
+
     hideRecipes(recipes){ 
         recipes.forEach(r => { 
             document.getElementById(r).classList.replace("active", "hide"); 
@@ -126,7 +132,20 @@ class searchDisplay extends display {
             id_li[0].substring(0, 1)+"-"+id_li[1], 
             dom_li.parentNode.getAttribute("id").split("-")[0]
         );
-        dom_li.classList.add(this.html_hide_class);
+        dom_li.classList.remove("available");
     }; 
+
+    updateSearchList(app_list, ing_list, ust_list){
+        document.querySelectorAll(".available").forEach(e => {
+            let id_split = e.getAttribute("id").split("-");
+            if(id_split[0] === "asl"){
+                if(!app_list.includes(parseInt(id_split[1]))){ e.classList.replace("available", "not-available"); }
+            } else if(id_split[0] === "isl"){
+                if(!ing_list.includes(parseInt(id_split[1]))){ e.classList.replace("available", "not-available"); }
+            } else if(id_split[0] === "usl"){
+                if(!ust_list.includes(parseInt(id_split[1]))){ e.classList.replace("available", "not-available"); }
+            }
+        });
+    }
 
 }

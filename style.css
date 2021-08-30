@@ -7,6 +7,9 @@
     --bg-color-ustenciles: #ED6454 ;
 }
 
+article li { font-weight: bold; }
+article li span { font-weight: normal; }
+
 body {
     text-align: center; 
 }
@@ -76,6 +79,8 @@ header {
 #recipes-found a h1 {
 	width: 65%;
     order: 1;
+	font-size: 20px;
+	font-weight: normal;
 }
 #recipes-found article {
 	display: flex;
@@ -92,6 +97,7 @@ header {
 }
 #recipes-found article ul {
 	order: 3;
+	margin: 5px;
 }
 
 #recipes-search {
@@ -119,8 +125,8 @@ header {
 	font-size: small;
 	opacity: 0.5;
 }
-.search-mode ul li { display: none; }
-.search-mode ul li.found { display: block; }
+.tags-search.search-mode ul li { display: none; }
+.tags-search.search-mode ul li.found { display: block; }
 
 .tags-search {
     display: flex;
@@ -180,7 +186,9 @@ header {
 	justify-content: space-between;
 	padding: 0 20px;
 }
-.tags-search ul li {
+.tags-search li { display: none; }
+.tags-search li.available { 
+	display: block; 
 	width: 30%;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -223,6 +231,23 @@ header {
 
 .time-recip {
 	order: 2;
+	font-weight: bold;
+	font-size: large;
+}
+.time-recip::after {
+	content: "min";
+	margin-left: 5px;
+}
+.time-recip::before {
+	content: "";
+	float: left;
+	margin-right: 5px;
+	width: 20px;
+	background-image: url("img/time.png");
+	height: 20px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 ul {

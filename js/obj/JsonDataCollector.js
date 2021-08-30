@@ -20,7 +20,13 @@ class jsonDataCollector extends issue {
         }
     };
 
+    list_of_recipe_appliances = new Map();
+
     list_of_recipe_id = [];
+
+    list_of_recipe_ingredients = new Map();
+
+    list_of_recipe_ustencils = new Map();
 
     list_of_search_item = new Map();
     
@@ -79,7 +85,7 @@ class jsonDataCollector extends issue {
                 if(!this.compareToList.isIdentical(this.armonizeWords(item), list_type)){
                     item_array.push(item.toLowerCase());
                     this.list_of_search_item.set(list_type, item_array);
-                    return searchDisplay_obj.addItemList(item, list_type, num_id);
+                    return searchDisplay_obj.addItemList(item, list_type, num_id, "available");
                 } else { return false ;}
             } else { this.setErrorMsg("list_type paramater isn't in list_of_search_item attribute") ; }
         }
@@ -104,15 +110,31 @@ class jsonDataCollector extends issue {
         let num_id = [0, 0, 0] ;
         for(let recipe of recipes){
             if(typeof recipe === "object"){
+                // save in recipes list
                 this.list_of_recipe_id.push("recipe-"+recipe.id);
                 rd.createRecipePtrn(recipe);
+                let ri = []; // recipe's ingredients list
+                let ru = []; // recipe's ustencils list
+                // saves the ingredients in the summary list and displays them 
                 for(let ing of recipe.ingredients){
-                    if(this.addItemToSearchList(ing, "i", this.searchDisplay_obj, num_id[0], rd)){ num_id[0]++ ; } 
+                    if(this.addItemToSearchList(ing, "i", this.searchDisplay_obj, num_id[0], rd)){ 
+                        num_id[0]++ ;
+                    }
+                    let id_ing = this.list_of_search_item.get("i").indexOf(ing.ingredient.toLowerCase());
+                    if(id_ing >= 0){ ri.push(id_ing); }  
                 }
+                // saves the appliances in the summary list and displays them
                 num_id[1] += this.addItemToSearchList(recipe.appliance, "a", this.searchDisplay_obj, num_id[1]);
+                // saves the ustencils in the summary list and displays them
                 for(let ust of recipe.ustensils){ 
                     num_id[2] += this.addItemToSearchList(ust, "u", this.searchDisplay_obj, num_id[2]); 
+                    ru.push(num_id[2]);
                 }
+                // save recipe list
+                this.list_of_recipe_appliances.set(recipe.id, num_id[1]); 
+                this.list_of_recipe_ingredients.set(recipe.id, ri);
+                this.list_of_recipe_ustencils.set(recipe.id, ru);
+                // display recipe
                 rd.display();
             }
         }
