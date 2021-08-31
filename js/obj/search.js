@@ -102,7 +102,7 @@ class search extends issue {
                 let display = false ;
                 for(i ; i < st_array.length ; i++){
                     if(i === (st_array.length - 1)){ display = true ; }
-                    this.searchRecipes(st_array[i].textContent.toLowerCase(), this.getWhatByLi(st_array[i]), display);
+                    this.searchRecipes(st_array[i].textContent, this.getWhatByLi(st_array[i]), display);
                 }
             }
         } else { this.clear(true) ;  }
@@ -125,7 +125,8 @@ class search extends issue {
     };
 
     search(txt, searched_value){
-        if(txt.toLowerCase().indexOf(searched_value) >= 0){
+        let sv = new RegExp(searched_value, "i");
+        if(txt.match(sv) !== null){
             this.found = true;
             return true;
         } else { 
@@ -194,7 +195,7 @@ class search extends issue {
         let availabl_ust = []; // available ustencils of selected recipes
         let rjct_r = []; // rejected recipes
         let slct_r = []; // selected recipes
-        searched_value = searched_value.toLowerCase();
+        searched_value = searched_value;
         this.result.get("a").forEach(id => {
             let id_recipe = id.split("-")[1] ;
             if(what === "ing" || what === "all"){ this.searchIngredient(searched_value, id_recipe); }
@@ -256,7 +257,7 @@ class search extends issue {
         if(search_container.classList.contains("search-mode")){
             this.stopSearchTag(document.getElementById(list_type+"-search-close"));
         }
-        this.searchRecipes(dom_li.textContent.toLowerCase(), list_type.substring(0, 3)); 
+        this.searchRecipes(dom_li.textContent, list_type.substring(0, 3)); 
     };
     
     stopSearchTag = function(dom_element){

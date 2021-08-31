@@ -52,7 +52,7 @@ header {
 	transform: translateY(-50px);
 	height: 0;
     opacity: 0;
-	margin-bottom: -40px;
+	margin-bottom: -25px;
 	transition: all 250ms;
 }
 
@@ -90,6 +90,7 @@ header {
 	padding: 25px;
 	background-color: var(--bg-color-light);
 	justify-content: space-between;
+	font-size: 0.9em;
 }
 #recipes-found a h1, #recipes-found a p {
 	margin: 1%;
@@ -177,7 +178,7 @@ header {
     color: white;
 }
 .tags-search label, .tags-search input {
-    padding: 20px;
+    padding: 15px 20px;
 }
 .tags-search ul {
 	margin: 0;
