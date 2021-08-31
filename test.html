@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Les petits plats</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <img src="img/les_petits_lats.svg" alt="Les petits plats" title="Logo Les petits plats">
+            <h1>Les petits plats</h1>
+        </header>
+        <main>
+            <form id="recipes-search-form">
+                <fieldset id="recipes-search-container">
+                    <input 
+                        type="search" 
+                        id="recipes-search" 
+                        class="l-met-globalSearch l-obj-se l-evt-ku prm" 
+                        placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" 
+                    >
+                </fieldset>
+                <fieldset id="tag-search-container">
+                    <ul id="tags-selected"></ul>
+                    <div class="l-met-openDomList l-obj-se l-evt-c prm l-pre-def tags-search closed">
+                        <label for="ingredients-search">Ingrédient</label>
+                        <input 
+                            type="search" 
+                            id="ingredients-search" 
+                            class="l-met-searchTag l-obj-se l-evt-ku prm" 
+                            placeholder="Rechercher un ingrédient"
+                        >
+                        <span 
+                            id="ingredients-search-close" 
+                            class="l-met-stopSearchTag l-obj-se l-evt-c prm close-search-mode" 
+                        ></span>
+                        <ul id="ingredients-list">
+                            <li id="isl-empty" class="hide">Aucun ingredient trouvé</li>
+                        </ul>
+                    </div>
+                    <div class="l-met-openDomList l-obj-se l-evt-c prm tags-search closed">
+                        <label for="appliance-search">Appareil</label>
+                        <input 
+                            type="search" 
+                            id="appliance-search" 
+                            class="l-met-searchTag l-obj-se l-evt-ku prm" 
+                            placeholder="Rechercher un appareil"
+                        >
+                        <span 
+                            id="appliance-search-close" 
+                            class="l-met-stopSearchTag l-obj-se l-evt-c prm close-search-mode" 
+                        ></span>
+                        <ul id="appliance-list">
+                            <li id="asl-empty" class="hide">Aucun ingredient trouvé</li>
+                        </ul>
+                    </div>
+                    <div class="l-met-openDomList l-obj-se l-evt-c prm tags-search closed">
+                        <label for="ustencils-search">Ustenciles</label>
+                        <input 
+                            type="search" 
+                            id="ustencils-search" 
+                            class="l-met-searchTag l-obj-se l-evt-ku prm" 
+                            placeholder="Rechercher un ustenciles"
+                        >
+                        <span 
+                            id="ustencils-search-close" 
+                            class="l-met-stopSearchTag l-obj-se l-evt-c prm close-search-mode" 
+                        ></span>
+                        <ul id="ustencils-list">
+                            <li id="usl-empty" class="hide">Aucun ingredient trouvé</li>
+                        </ul>
+                    </div>
+                </fieldset>
+            </form>
+            <section id=recipes-found></section>
+        </main>
+        <script src="js/recipes.js"></script>
+        <script src="js/test/common_functions.js"></script>
+        <script src="js/test/match_test.js"></script>
+    </body>
+</html>
