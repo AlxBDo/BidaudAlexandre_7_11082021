@@ -15,21 +15,7 @@ body {
 	font-family: 'Lato', sans-serif;
 }
 
-fieldset {
-    width: 90%;
-    text-align: left;
-    margin: auto;
-    border: none;
-    padding: 0;
-}
-fieldset input {
-    border: none;
-    background-color: transparent;
-    width: 90%;
-}
-fieldset input:focus-visible {
-	outline: none;
-}
+.closed.search-mode label { margin-top: -10px; }
 
 .desc-recip {
 	order: 4;
@@ -44,13 +30,35 @@ fieldset input:focus-visible {
     padding: 0
 }
 
-h1 { font-family: 'DM Sans', sans-serif; }
-
-header {
-    color: var(--title-color);
+fieldset {
+    width: 90%;
+    text-align: left;
+    margin: auto;
+    border: none;
+    padding: 0;
+}
+fieldset input {
+    border: none;
+    background-color: transparent;
+    width: 90%;
+	font-size: medium; 
+}
+fieldset input:focus-visible {
+	outline: none;
 }
 
+header { color: var(--title-color); }
+
+header h1 { font-family: 'DM Sans', sans-serif; }
+
 .hide { display: none; }
+
+#no-recipe-found {
+	margin: 40px auto;
+	color: var(--bg-color-dark);
+	font-weight: bold;
+	font-size: large;
+}
 
 .opened label {
 	transform: translateY(-50px);
@@ -59,16 +67,26 @@ header {
 	margin-bottom: -25px;
 	transition: all 250ms;
 }
+.opened.search-mode .close-search-mode::after {
+	content: "x";
+	padding: 0px 6px 2px;
+	position: absolute;
+	right: 25%;
+	border: 2px solid;
+	border-radius: 17px;
+	top: 22px;
+	font-size: small;
+	opacity: 0.5;
+}
 
 #recipes-found {
 	display: flex;
 	flex-wrap: wrap;
-    justify-content: space-between;
     width: 90%;
-    margin: auto;
+    margin: 50px auto;
 }
 #recipes-found a {
-	margin: 1% 0;
+	margin: 1.65%;
 	width: 30%;
 	text-decoration: none;
 	color: inherit;
@@ -83,7 +101,7 @@ header {
 #recipes-found a h1 {
 	width: 65%;
     order: 1;
-	font-size: 20px;
+	font-size: 21px;
 	font-weight: normal;
 }
 #recipes-found article {
@@ -96,7 +114,7 @@ header {
 	justify-content: space-between;
 }
 #recipes-found a h1, #recipes-found a p {
-	margin: 1%;
+	margin: 10px 1%;
 	text-align: left;
 }
 #recipes-found article ul {
@@ -118,17 +136,6 @@ header {
 	top: 17px;
 }
 
-.search-mode .close-search-mode::after {
-	content: "x";
-	padding: 0px 6px 2px;
-	position: absolute;
-	right: 25%;
-	border: 2px solid;
-	border-radius: 17px;
-	top: 16px;
-	font-size: small;
-	opacity: 0.5;
-}
 .tags-search.search-mode ul li { display: none; }
 .tags-search.search-mode ul li.found { display: block; }
 
@@ -140,6 +147,7 @@ header {
     flex-direction: column;
     position: relative;
 	transition: all 250ms ease-in-out;
+	padding: 7px;
 }
 .tags-search.closed::after {
 	content: url("img/dropdown-close.png");
@@ -149,7 +157,7 @@ header {
 	height: 11px;
 	position: absolute;
 	right: 7%;
-	top: 16px;
+	top: 22px;
 }
 .tags-search.opened::after {
 	content: url("img/dropdown-open.png");
@@ -180,9 +188,8 @@ header {
     cursor: pointer;
     color: white;
 }
-.tags-search label, .tags-search input {
-    padding: 15px 20px;
-}
+.tags-search label { font-weight: bolder; }
+.tags-search label, .tags-search input { padding: 15px 20px; }
 .tags-search ul {
 	margin: 15px 0 0;
 	display: flex;

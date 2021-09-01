@@ -105,6 +105,10 @@ class searchDisplay extends display {
 
     noTagFound(id_html){ document.getElementById(id_html).classList.replace("hide", "found") ; };
 
+    noRecipeFound(){ document.getElementById("no-recipe-found").classList.replace("hide", "active") ; };
+
+    recipeFound(){ document.getElementById("no-recipe-found").classList.replace("active", "hide") ; };
+
     /**
      * 
      * @param {object} dom_li dom object 

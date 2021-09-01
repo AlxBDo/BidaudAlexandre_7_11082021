@@ -31,7 +31,7 @@
                         <input 
                             type="search" 
                             id="ingredients-search" 
-                            class="l-met-searchTag l-obj-se l-evt-ku prm" 
+                            class="l-met-searchTag l-obj-se l-evt-ku l-evt-c prm" 
                             placeholder="Rechercher un ingrédient"
                         >
                         <span 
@@ -42,12 +42,12 @@
                             <li id="isl-empty" class="hide">Aucun ingredient trouvé</li>
                         </ul>
                     </div>
-                    <div class="l-met-openDomList l-obj-se l-evt-c prm tags-search closed">
+                    <div class="l-met-openDomList l-obj-se l-evt-c prm l-pre-def tags-search closed">
                         <label for="appliance-search">Appareil</label>
                         <input 
                             type="search" 
                             id="appliance-search" 
-                            class="l-met-searchTag l-obj-se l-evt-ku prm" 
+                            class="l-met-searchTag l-obj-se l-evt-ku l-evt-c prm" 
                             placeholder="Rechercher un appareil"
                         >
                         <span 
@@ -58,12 +58,12 @@
                             <li id="asl-empty" class="hide">Aucun ingredient trouvé</li>
                         </ul>
                     </div>
-                    <div class="l-met-openDomList l-obj-se l-evt-c prm tags-search closed">
+                    <div class="l-met-openDomList l-obj-se l-evt-c prm l-pre-def tags-search closed">
                         <label for="ustencils-search">Ustensiles</label>
                         <input 
                             type="search" 
                             id="ustencils-search" 
-                            class="l-met-searchTag l-obj-se l-evt-ku prm" 
+                            class="l-met-searchTag l-obj-se l-evt-ku l-evt-c prm" 
                             placeholder="Rechercher un ustenciles"
                         >
                         <span 
@@ -76,7 +76,12 @@
                     </div>
                 </fieldset>
             </form>
-            <section id=recipes-found></section>
+            <div id=recipes-found>
+                <p id="no-recipe-found" class="hide">
+                    Aucune recette ne correspond à votre critère. vous pouvez chercher 
+                    « tarte aux pommes », « poisson », etc...
+                </p>
+            </div>
         </main>
         <script src="js/obj/issue.js"></script>
         <script src="js/obj/listenner.js"></script>

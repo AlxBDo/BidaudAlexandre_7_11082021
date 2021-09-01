@@ -60,9 +60,11 @@ class search extends issue {
         if(this.test(dom_input, "object", {"pos" : "first"})){
             let vs = dom_input.value;
             let vsl = vs.length ;
-            if(vsl < this.value_search_historical){ this.clear(); }
-            this.value_search_historical = vsl;
-            this.searchRecipes(vs, "all");
+            if(vsl < this.value_search_historical){ this.clear(true); }
+            if(vsl > 2 ){
+                this.value_search_historical = vsl;
+                this.searchRecipes(vs, "all");
+            }
         }
     }
 
@@ -148,34 +150,37 @@ class search extends issue {
     searchTag = function(dom_input){
         if(this.test(dom_input, "object", {"pos": "first"})){
             let parent = dom_input.parentNode;
-            if(parent.classList.contains("closed")){ this.jdc.getSearchDisplObj().annimTagsList(parent); }
-            let id_cplmt = dom_input.getAttribute("id").split("-")[0];
-            let id_fl = id_cplmt.substring(0, 1);
-            this.jdc.getSearchDisplObj().startTagSearch(parent);
-            let items_array = this.jdc.list_of_search_item.get(id_fl);
-            let items_found = [];
-            let items_to_change = [];
             let value_searched = dom_input.value;
-            for(let i = 0; i < items_array.length ; i++){
-                if(this.search(items_array[i], value_searched)){ items_found.push(i);}
+            this.jdc.getSearchDisplObj().startTagSearch(parent);
+            // Check that the user has entered at least 3 characters
+            if(value_searched.length > 2){
+                if(parent.classList.contains("closed")){ this.jdc.getSearchDisplObj().annimTagsList(parent); }
+                let id_cplmt = dom_input.getAttribute("id").split("-")[0];
+                let id_fl = id_cplmt.substring(0, 1);
+                let items_array = this.jdc.list_of_search_item.get(id_fl);
+                let items_found = [];
+                let items_to_change = [];
+                for(let i = 0; i < items_array.length ; i++){
+                    if(this.search(items_array[i], value_searched)){ items_found.push(i);}
+                }
+                if(items_found.length > 0) { 
+                    this.jdc.getSearchDisplObj().tagFound(id_fl+"sl-empty") ;
+                    if(this.tag_search_historical.length > 0){
+                            items_to_change = this.getDifference(items_found, this.tag_search_historical).concat(
+                                this.getDifference(this.tag_search_historical, items_found)
+                        );
+                    } else { items_to_change = items_found ; }
+                } else {
+                    this.jdc.getSearchDisplObj().noTagFound(id_fl+"sl-empty") ;
+                    if(this.tag_search_historical.length > 0) { items_to_change = this.tag_search_historical ; }
+                }
+                if(items_to_change.length > 0){  
+                    for(let e of items_to_change){ this.jdc.getSearchDisplObj().liTagSearched(id_fl+"sl-"+e) ;}
+                }
+                this.tag_search_historical = items_found;
+                items_found = [];
+                items_to_change = [];
             }
-            if(items_found.length > 0) { 
-                this.jdc.getSearchDisplObj().tagFound(id_fl+"sl-empty") ;
-                if(this.tag_search_historical.length > 0){
-                        items_to_change = this.getDifference(items_found, this.tag_search_historical).concat(
-                            this.getDifference(this.tag_search_historical, items_found)
-                    );
-                } else { items_to_change = items_found ; }
-            } else {
-                this.jdc.getSearchDisplObj().noTagFound(id_fl+"sl-empty") ;
-                if(this.tag_search_historical.length > 0) { items_to_change = this.tag_search_historical ; }
-            }
-            if(items_to_change.length > 0){  
-                for(let e of items_to_change){ this.jdc.getSearchDisplObj().liTagSearched(id_fl+"sl-"+e) ;}
-            }
-            this.tag_search_historical = items_found;
-            items_found = [];
-            items_to_change = [];
         }
     }
 
@@ -239,13 +244,15 @@ class search extends issue {
         // if display -> delete recipes waiting display
         if(display){ this.result.set("wait_display", []) ; }
         // if the result of the global search is empty, try a new search word by word
-        if(slct_r.length === 0 && searched_value.includes(" ") && what === "all"){
-            let svs = searched_value.split(" ");
-            this.clear();
-            for(let i = 0; i < svs.length ; i++){
-                if(!this.result.get("h"+what+this.getSearchedMapKey(svs[i]))){ this.searchRecipes(svs[i], what); }
-            }
-        }
+        if(slct_r.length === 0){
+            if(searched_value.includes(" ") && what === "all"){
+                let svs = searched_value.split(" ");
+                this.clear();
+                for(let i = 0; i < svs.length ; i++){
+                    if(!this.result.get("h"+what+this.getSearchedMapKey(svs[i]))){ this.searchRecipes(svs[i], what); }
+                }
+            } else { this.jdc.getSearchDisplObj().noRecipeFound() ; }
+        } else { this.jdc.getSearchDisplObj().recipeFound() ; }
     };
 
     selectTag = function(dom_li){ 
