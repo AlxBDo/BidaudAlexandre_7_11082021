@@ -12,6 +12,7 @@ article li span { font-weight: normal; }
 
 body {
     text-align: center; 
+	font-family: 'Lato', sans-serif;
 }
 
 fieldset {
@@ -36,11 +37,14 @@ fieldset input:focus-visible {
 	overflow: hidden;
 	max-height: 74%;
 	word-wrap: break-word;
+	font-family: 'Roboto', sans-serif;
 }
 .desc-recip, #recipes-found a ul {
 	width: 46%;
     padding: 0
 }
+
+h1 { font-family: 'DM Sans', sans-serif; }
 
 header {
     color: var(--title-color);
@@ -52,7 +56,7 @@ header {
 	transform: translateY(-50px);
 	height: 0;
     opacity: 0;
-	margin-bottom: -40px;
+	margin-bottom: -25px;
 	transition: all 250ms;
 }
 
@@ -101,7 +105,7 @@ header {
 }
 
 #recipes-search {
-    padding: 2%;
+    padding: 25px 2%;
 }
 #recipes-search-container {
     background-color: var(--bg-color-light);
@@ -177,10 +181,10 @@ header {
     color: white;
 }
 .tags-search label, .tags-search input {
-    padding: 20px;
+    padding: 15px 20px;
 }
 .tags-search ul {
-	margin: 0;
+	margin: 15px 0 0;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
@@ -193,7 +197,7 @@ header {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	margin: 0% 0 3%;
+	margin: 0% 0 10px;
 }
 
 #tags-selected {
