@@ -44,10 +44,13 @@ class searchDisplay extends display {
         }
     };
 
+    /**
+     * ends the search by tags mode
+     * @param {object} dom_element 
+     */
     endTagSearch(dom_element){
         let parent = dom_element.parentNode;
         parent.classList.remove("search-mode");
-        //if(parent.classList.contains("opened")){ this.jdc.getSearchDisplObj().annimTagsList(parent); }
         let list_type = dom_element.getAttribute("id").split("-")[0];
         let li_array = Array.from(document.getElementById(list_type+"-list").childNodes);
         document.getElementById(list_type+"-search").value = "";
@@ -71,12 +74,17 @@ class searchDisplay extends display {
         return ["l-met-"+called_method, "l-obj-"+called_object, "l-evt-"+event, param ? "prm" : false, other_class];
     };
 
+    /**
+     * delete html class necessary for the search by tags
+     * @param {object} li_obj : li dom element
+     */
     clearLiSearchMode(li_obj){ 
-        if(li_obj.classList.contains("found")){
-            li_obj.classList.remove("found");
-        }
+        if(li_obj.classList.contains("found")){ li_obj.classList.remove("found"); }
     };
 
+    /**
+     * display all items tags
+     */
     clearSearchList(){
         document.querySelectorAll(".not-available").forEach(e => {
             e.classList.replace("not-available", "available");
@@ -89,6 +97,9 @@ class searchDisplay extends display {
         }); 
     };
 
+    /**
+     * indicates which display areas are
+     */
     initDisplayArea(){
         this.display_area = [
             document.getElementById("ingredients-list"), 
@@ -98,6 +109,10 @@ class searchDisplay extends display {
         ];
     };
 
+    /**
+     * displays tags corresponding to the search
+     * @param {object} li : li dom element 
+     */
     liTagSearched(li){ 
         if(typeof li === "object"){ li.classList.toggle("found") ;
         } else { document.getElementById(li).classList.toggle("found") ; }
@@ -110,7 +125,7 @@ class searchDisplay extends display {
     recipeFound(){ document.getElementById("no-recipe-found").classList.replace("active", "hide") ; };
 
     /**
-     * 
+     * show hidden tags from previous searches
      * @param {object} dom_li dom object 
      */
     removeSelectedTag(dom_li){
@@ -125,7 +140,7 @@ class searchDisplay extends display {
     tagFound(id_html){ document.getElementById(id_html).classList.replace("found" ,"hide") ; };
 
     /**
-     * 
+     * display selected tag and clears it from the list of available items
      * @param {object} dom_li dom object 
      */
     tagSelection(dom_li){
@@ -139,6 +154,12 @@ class searchDisplay extends display {
         dom_li.classList.remove("available");
     }; 
 
+    /**
+     * show or hide the available items in lists
+     * @param {array} app_list 
+     * @param {array} ing_list 
+     * @param {array} ust_list 
+     */
     updateSearchList(app_list, ing_list, ust_list){
         document.querySelectorAll(".available").forEach(e => {
             let id_split = e.getAttribute("id").split("-");

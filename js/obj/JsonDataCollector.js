@@ -103,7 +103,7 @@ class jsonDataCollector extends issue {
     };
 
     /**
-     * collects data and instantiates objects to display them
+     * collects data and instantiates objects to display them 
      */
     collect(){
         let rd = new recipeDisplay();

@@ -4,10 +4,19 @@ class recipeDisplay extends display {
 
     constructor(){ super() ; }
 
+    /**
+     * stores the element passed as the 1st parameter in the "pattern" attribute named by the 2nd parameter
+     * @param {object} item : dom element 
+     * @param {string} name_attr_ptrn 
+     */
     addItemToPtrn(item, name_attr_ptrn = "ptrn"){
         this[name_attr_ptrn].append(item);
     };
 
+    /**
+     * insert a "li" element in the "pattern" named "ing"
+     * @param {string} content 
+     */
     addItemToIngredientList(content){
         this.current_method = "addItemToIngredientList";
         let content_li = content.ingredient;
@@ -22,6 +31,12 @@ class recipeDisplay extends display {
         this.addItemToPtrn(this.addLiPtrn(content_li, false, false, false), "ing");
     };
 
+    /**
+     * add item to recipe
+     * @param {string} itm_typ : html tag name
+     * @param {string} content : content to insert in dom element created
+     * @param {object} attr_obj : object used to enter the attributes of the html element (id, class, name, type, ...)
+     */
     addItemToRecipePtrn(itm_typ, content =  false, attr_obj = false){
         this.addItemToPtrn(
             this.ptrnCreation(
@@ -49,6 +64,10 @@ class recipeDisplay extends display {
         this.addPtnToDA();
     }
 
+    /**
+     * create pattern containing the recipe
+     * @param {object} recipe_obj : json object
+     */
     createRecipePtrn(recipe_obj){
         this.recipe_id = recipe_obj.id ;
         this.ptrnCreation("article");

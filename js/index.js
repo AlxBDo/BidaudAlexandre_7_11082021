@@ -1,8 +1,13 @@
 const FOUND_RECIPES = document.getElementById("recipes-found");
 
+// collect and display json data
 let jdc = new jsonDataCollector();
 jdc.collect();
+
+// object containing search methods
 let srch = new search(jdc);
+
+// manages the events to listen to
 let lstr = new listenner(
     srch.dom_form, 
     "click", 
@@ -10,5 +15,4 @@ let lstr = new listenner(
     srch, 
     "se"
 );
-//srch.addListenner(lstr);
 lstr.listen();
