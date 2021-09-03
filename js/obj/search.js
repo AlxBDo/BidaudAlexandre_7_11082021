@@ -67,6 +67,37 @@ class search extends issue {
     getDifference(arr1, arr2){ return arr1.filter(x => !arr2.includes(x)); }
 
     /**
+     * create necessary list (ingredients, appliance, ...) from available recipes and save them in result map
+     */
+    getNecessaryFromRecipe(){
+        let availabl_app = []; // available appliances of selected recipes
+        let availabl_ing = []; // available ingredients of selected recipes
+        let availabl_ust = []; // available ustencils of selected recipes
+        this.result.get("a").forEach(id => {
+            let id_recipe = id.split("-")[1] ;
+            // retrieves the list of tags (ingredients, app ...) present in the recipe for updating the drop-down menus
+            let app = this.jdc.list_of_recipe_appliances.get(parseInt(id_recipe));
+            if(!availabl_app.includes(app)){ availabl_app.push(app); }
+            if(availabl_ing.length > 0){ 
+                availabl_ing = availabl_ing.concat(this.jdc.list_of_recipe_ingredients.get(parseInt(id_recipe))); 
+            } else { availabl_ing = this.jdc.list_of_recipe_ingredients.get(parseInt(id_recipe)) ; }
+            if(availabl_ust.length > 0){ 
+                availabl_ust = availabl_ust.concat(this.jdc.list_of_recipe_ustencils.get(parseInt(id_recipe))); 
+            } else { availabl_ust = this.jdc.list_of_recipe_ustencils.get(parseInt(id_recipe)) ; }
+        });
+        this.result.set("ava_app", availabl_app);
+        this.result.set("ava_ing", availabl_ing);
+        this.result.set("ava_ust", availabl_ust);
+    }
+
+    /**
+     * 
+     * @param {string} text 
+     * @returns {string} map key
+     */
+    getSearchedMapKey(text){ return this.jdc.armonizeWords(text.split(" ").join("")) ; };
+
+    /**
      * tool function allowing to get the three first letters of tag category
      * @param {object} dom_li 
      * @returns {sting} 
@@ -76,13 +107,6 @@ class search extends issue {
         id += id === "i" ? "ng" : id === "a" ? "pp" : "st";
         return id;
     };
-
-    /**
-     * 
-     * @param {string} text 
-     * @returns {string} map key
-     */
-    getSearchedMapKey(text){ return this.jdc.armonizeWords(text.split(" ").join("")) ; };
 
     /**
      * 
@@ -121,6 +145,13 @@ class search extends issue {
                     this.updateResult(e);
                 });        
                 this.result.delete("h"+ what + searched_value);
+                this.getNecessaryFromRecipe();
+                // hide search list items not available
+                this.jdc.getSearchDisplObj().updateSearchList(
+                    this.result.get("ava_app"), 
+                    this.result.get("ava_ing"), 
+                    this.result.get("ava_ust")
+                );
             } else {
                 // if back to a more previous search
                 // get search position in historical to delete it
