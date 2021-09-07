@@ -179,7 +179,7 @@ header h1 {
     display: flex;
     flex-wrap: wrap;
 }
-.tag-search-container input::placeholder { color: white; }
+#tag-search-container input::placeholder { color: white; }
 #tag-search-container p {
     width: 100%;
 }
