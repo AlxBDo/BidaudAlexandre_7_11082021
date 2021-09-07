@@ -75,7 +75,7 @@ header h1 {
 }
 .opened.search-mode .close-search-mode::after {
 	content: "x";
-	padding: 0px 6px 2px;
+	padding: 0px 6px 3px;
 	position: absolute;
 	right: 25%;
 	border: 2px solid;
@@ -242,7 +242,7 @@ header h1 {
 	float: right;
 	border-radius: 100%;
 	margin-left: 10px;
-	padding: 0px 8px 2px;
+	padding: 0px 8px 3px;
 	border: 2px solid;
 	margin-top: -2px;
 }
