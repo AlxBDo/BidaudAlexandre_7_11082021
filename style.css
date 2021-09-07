@@ -59,8 +59,6 @@ header h1 {
 
 .hide { display: none; }
 
-input[type="search"]::placeholder { color: white; }
-
 #no-recipe-found {
 	margin: 40px auto;
 	color: var(--bg-color-dark);
@@ -181,6 +179,7 @@ input[type="search"]::placeholder { color: white; }
     display: flex;
     flex-wrap: wrap;
 }
+.tag-search-container input::placeholder { color: white; }
 #tag-search-container p {
     width: 100%;
 }
