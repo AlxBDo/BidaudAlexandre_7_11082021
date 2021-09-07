@@ -47,11 +47,19 @@ fieldset input:focus-visible {
 	outline: none;
 }
 
-header { color: var(--title-color); }
+header { 
+	margin: 25px auto;
+	color: var(--title-color); 
+}
 
-header h1 { font-family: 'DM Sans', sans-serif; }
+header h1 { 
+	margin: 0 auto;
+	font-family: 'DM Sans', sans-serif; 
+}
 
 .hide { display: none; }
+
+input[type="search"]::placeholder { color: white; }
 
 #no-recipe-found {
 	margin: 40px auto;
